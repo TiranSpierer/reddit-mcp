@@ -1,0 +1,22 @@
+{
+  "name": "reddit-mcp",
+  "version": "1.0.0",
+  "description": "Read-only Reddit MCP server — search and read Reddit without API keys",
+  "type": "module",
+  "bin": {
+    "reddit-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.0",
+    "@types/node": "^25.0.0"
+  }
+}

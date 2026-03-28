@@ -141,9 +141,9 @@ npm install
 npm run build
 ```
 
-Register the dev server:
+Register the dev server (run from repo root):
 ```bash
-claude mcp add reddit-mcp-dev -s project -- node "$(git rev-parse --show-toplevel)/dist/index.js"
+claude mcp add reddit-mcp-dev -s project -- node dist/index.js
 ```
 
 After making changes, run `npm run build` and reload Claude for the new code to take effect.

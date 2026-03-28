@@ -39,7 +39,10 @@ class RedditClient {
     let response: Response;
     try {
       response = await fetch(url, {
-        headers: { "User-Agent": USER_AGENT },
+        headers: {
+          "User-Agent": USER_AGENT,
+          "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+        },
       });
     } catch (err) {
       throw new RedditError("NETWORK_ERROR", `Network request failed: ${String(err)}`);

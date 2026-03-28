@@ -56,15 +56,11 @@ npm install
 npm run build
 ```
 
-Then add it to Claude pointing at the local dist:
+Register the dev server:
 ```bash
 claude mcp add reddit-mcp-dev -s project -- node "$(git rev-parse --show-toplevel)/dist/index.js"
-# saved to .mcp.json (gitignored)
 ```
 
-To remove:
-```bash
-claude mcp remove reddit-mcp-dev -s project
-```
+After making changes, run `npm run build` and reload Claude for the new code to take effect.
 
 </details>

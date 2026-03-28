@@ -71,7 +71,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchReddit(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -92,7 +92,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchSubreddits(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -111,7 +111,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getSubredditInfo(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -140,7 +140,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getSubredditPosts(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -170,7 +170,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchSubredditPosts(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -217,7 +217,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getPost(args);
-      return { content: [{ type: "text", text: JSON.stringify(result) }] };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err) {
       return handleError(err);
     }

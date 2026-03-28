@@ -31,7 +31,7 @@ claude mcp add reddit-mcp-dev -s project -- node "$(git rev-parse --show-topleve
 
 ### Source Layout (src/)
 
-- **index.ts** — Entry point. Creates `McpServer`, registers one resource (`reddit://api-behavior`) and all 6 tools with Zod input schemas, connects via `StdioServerTransport`. All tool handlers share the same error-handling pattern: `RedditError` → `{ isError: true }` response, anything else re-thrown.
+- **index.ts** — Entry point. Creates `McpServer`, registers one resource (`reddit://api-behavior`) and all 6 tools with Zod input schemas, connects via `StdioServerTransport`. Tool results are serialized as YAML (with JSON fallback) for token efficiency. All tool handlers share the same error-handling pattern: `RedditError` → `{ isError: true }` response, anything else re-thrown.
 
 - **client.ts** — Singleton `RedditClient` (exported as `reddit`). Appends `.json` to Reddit paths, uses native `fetch`. Handles rate limiting (tracks `x-ratelimit-*` headers, sleeps when exhausted, retries once on 429). Distinguishes private/banned subreddits on 403.
 
@@ -49,4 +49,4 @@ claude mcp add reddit-mcp-dev -s project -- node "$(git rev-parse --show-topleve
 
 ### Dependencies
 
-Only two runtime deps: `@modelcontextprotocol/sdk` (MCP framework) and `zod` (input validation).
+Three runtime deps: `@modelcontextprotocol/sdk` (MCP framework), `zod` (input validation), and `yaml` (YAML serialization for token-efficient tool output).

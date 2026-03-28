@@ -5,6 +5,7 @@ import { z } from "zod";
 import { readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { stringify as yamlStringify } from "yaml";
 
 import { searchReddit, searchSubredditPosts } from "./tools/search.js";
 import { searchSubreddits, getSubredditInfo, getSubredditPosts } from "./tools/subreddits.js";
@@ -36,6 +37,14 @@ server.resource(
 );
 
 // ─── Tool handler wrapper ─────────────────────────────────────────────────────
+
+function toYaml(data: unknown): string {
+  try {
+    return yamlStringify(data, { indent: 2, lineWidth: 0 });
+  } catch {
+    return JSON.stringify(data, null, 2);
+  }
+}
 
 function handleError(err: unknown): { content: Array<{ type: "text"; text: string }>; isError: true } {
   if (err instanceof RedditError) {
@@ -71,7 +80,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchReddit(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -92,7 +101,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchSubreddits(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -111,7 +120,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getSubredditInfo(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -140,7 +149,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getSubredditPosts(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -170,7 +179,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await searchSubredditPosts(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }
@@ -217,7 +226,7 @@ server.registerTool(
   async (args) => {
     try {
       const result = await getPost(args);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      return { content: [{ type: "text", text: toYaml(result) }] };
     } catch (err) {
       return handleError(err);
     }

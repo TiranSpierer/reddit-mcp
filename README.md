@@ -6,9 +6,94 @@ Search across Reddit or within specific communities, browse feeds, and read full
 
 ## Install
 
+**Standard config** works in most tools:
+
+```json
+{
+  "mcpServers": {
+    "reddit-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "git+https://github.com/TiranSpierer/reddit-mcp.git"
+      ]
+    }
+  }
+}
+```
+
+<details>
+<summary>Claude Code</summary>
+
+Run in terminal:
 ```bash
 claude mcp add reddit-mcp -s user -- npx -y git+https://github.com/TiranSpierer/reddit-mcp.git
 ```
+
+</details>
+
+<details>
+<summary>VS Code / Copilot</summary>
+
+Run in terminal:
+```bash
+code --add-mcp '{"name":"reddit-mcp","command":"npx","args":["-y","git+https://github.com/TiranSpierer/reddit-mcp.git"]}'
+```
+
+</details>
+
+<details>
+<summary>Codex</summary>
+
+Run in terminal:
+```bash
+codex mcp add reddit-mcp npx "-y" "git+https://github.com/TiranSpierer/reddit-mcp.git"
+```
+
+</details>
+
+<details>
+<summary>Cursor</summary>
+
+Follow the [Cursor MCP docs](https://cursor.com/docs/mcp). Use the standard config above.
+
+</details>
+
+<details>
+<summary>Windsurf</summary>
+
+Follow the [Windsurf MCP docs](https://docs.windsurf.com/windsurf/cascade/mcp). Use the standard config above.
+
+</details>
+
+<details>
+<summary>Antigravity</summary>
+
+Follow the [Antigravity MCP docs](https://antigravity.google/docs/mcp). Use the standard config above.
+
+</details>
+
+<details>
+<summary>Cline</summary>
+
+Follow the [Cline MCP docs](https://docs.cline.bot/mcp/configuring-mcp-servers). Add to `cline_mcp_settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "reddit-mcp": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "git+https://github.com/TiranSpierer/reddit-mcp.git"
+      ],
+      "disabled": false
+    }
+  }
+}
+```
+
+</details>
 
 ---
 

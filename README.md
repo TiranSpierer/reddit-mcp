@@ -2,7 +2,7 @@
 
 Read-only Reddit MCP server. Search Reddit and read discussions without an API key.
 
-Built for the use case of researching errors and problems — search across Reddit or within specific communities, then read the full thread and solutions.
+Search across Reddit or within specific communities, browse feeds, and read full discussion threads.
 
 ## Install
 

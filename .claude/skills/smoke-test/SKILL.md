@@ -1,4 +1,5 @@
 ---
+name: smoke-test
 description: Smoke test the reddit-mcp server. Run this after making changes to source files in src/ to verify all 6 MCP tools still work correctly. Covers happy paths and edge cases.
 ---
 

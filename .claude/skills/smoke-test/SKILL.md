@@ -2,29 +2,15 @@
 description: Smoke test the reddit-mcp server. Run this after making changes to source files in src/ to verify all 6 MCP tools still work correctly. Covers happy paths and edge cases.
 ---
 
-Build, register, smoke-test, and clean up the reddit-mcp MCP server. This exercises all 6 tools with happy paths and edge cases via a Claude subprocess.
-
 ## Step 1: Build
-
-Run from the repository root. Stop and report if it fails.
 
 ```bash
 npm run build
 ```
 
-## Step 2: Register MCP server
+Stop and report if it fails.
 
-Remove any stale test registration, then register using the repo's current path:
-
-```bash
-REPO_ROOT="$(git rev-parse --show-toplevel)"
-claude mcp remove reddit-mcp-dev -s project 2>/dev/null || true
-claude mcp add reddit-mcp-dev -s project -- node "$REPO_ROOT/dist/index.js"
-```
-
-## Step 3: Run smoke tests
-
-Run the test suite via `claude -p` so the newly registered MCP server is available in the subprocess. Execute this command:
+## Step 2: Run smoke tests
 
 ```bash
 claude -p --model sonnet --allowedTools "mcp__reddit-mcp-dev" <<'TESTPROMPT'
@@ -88,15 +74,10 @@ SUMMARY: X/11 passed
 TESTPROMPT
 ```
 
-## Step 4: Evaluate and clean up
+## Step 3: Evaluate
 
 Parse the subprocess output for the SUMMARY line.
 
-**All 11 passed:** Clean up and report success.
-```bash
-claude mcp remove reddit-mcp-dev -s project
-```
-Report: "All 11 smoke tests passed. Cleaned up reddit-mcp-dev registration."
+**All 11 passed:** Report: "All 11 smoke tests passed."
 
-**Any failures:** Do NOT remove the MCP server. Report which tests failed and why. Tell the user:
-"MCP server left registered as `reddit-mcp-dev` for debugging. Run `claude mcp remove reddit-mcp-dev -s project` when done."
+**Any failures:** Report which tests failed and why.

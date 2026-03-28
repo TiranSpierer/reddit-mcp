@@ -18,12 +18,19 @@ No linter or formatter is configured.
 
 ### Smoke Testing
 
-Run `/smoke-test` to exercise all 6 tools with happy paths and edge cases. This is a project skill at `.claude/skills/smoke-test/SKILL.md` — Claude can also auto-invoke it after editing source files. It builds the project, temporarily registers the MCP server, runs 11 tests via a Claude subprocess, and cleans up on success. See [.claude/commands/smoke-test.md](.claude/commands/smoke-test.md).
+Run `/smoke-test` to exercise all tools with happy paths and edge cases. The skill builds the project, kills the running MCP server process (Claude Code auto-respawns it with the fresh build), then calls all tools directly via `mcp__reddit-mcp-dev__*`.
 
-To manually test, add as an MCP server:
+The `reddit-mcp-dev` MCP server is registered in `.mcp.json` (project scope). It points to `dist/index.js`.
+
+### Quick Self-Testing
+
+To test a specific change without the full smoke test:
+
 ```bash
-claude mcp add reddit-mcp-dev -s project -- node "$(git rev-parse --show-toplevel)/dist/index.js"
+npm run build && pkill -f "node.*reddit-mcp/dist/index.js"
 ```
+
+Then call the relevant `mcp__reddit-mcp-dev__*` tool directly to verify the change.
 
 ## Architecture
 

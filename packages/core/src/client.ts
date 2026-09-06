@@ -168,13 +168,13 @@ class RedditClient {
     const cookies = joinSetCookies(initial.headers);
     if (!body.includes(CHALLENGE_MARKER)) return cookies;
     const seed = body.match(/\("([0-9a-f]+)"\)/)?.[1];
-    const token = body.match(/name="token"\s+value="([^"]+)"/)?.[1];
+    const token = body.match(/name="jsc_token"\s+value="([^"]+)"/)?.[1];
     if (!seed || !token) {
       throw responseError("REDDIT_ACCESS_BLOCKED", "Reddit changed its access challenge", initial, body);
     }
     const url = new URL(initial.url || BOOTSTRAP_URL);
     url.searchParams.set("solution", seed + seed);
-    url.searchParams.set("token", token);
+    url.searchParams.set("jsc_token", token);
     url.searchParams.set("js_challenge", "1");
     url.searchParams.set("jsc_orig_r", "");
     let solved: Response;
